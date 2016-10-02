@@ -1,0 +1,18 @@
+.App {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.App > section {
+  padding: 4rem 0;
+}
+
+.App > .container {
+  flex: 1;
+  text-align: center;
+}
+
+.App-header {
+  padding-bottom: 4rem;
+}
