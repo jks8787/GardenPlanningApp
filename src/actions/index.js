@@ -3,11 +3,11 @@ export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
 export const TOGGLE_LAYOUT = 'TOGGLE_LAYOUT';
 
 let nextLayoutId = 0;
-export const addLayout = (text) => {
+export const addLayout = (data) => {
   return {
     type: ADD_LAYOUT,
     id: nextLayoutId++,
-    text
+    data
   }
 }
 

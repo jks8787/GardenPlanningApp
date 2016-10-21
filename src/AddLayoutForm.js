@@ -4,25 +4,25 @@ import { addLayout } from './actions';
 
 class AddLayoutForm extends Component {
   static propTypes = {
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    height: PropTypes.number,
+    width: PropTypes.number
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const onSubmit = this.props.onSubmit;
+    const data = new FormData(e.target);
+    onSubmit(data);
   }
 
   render() {
     let input;
-    const onSubmit = this.props.onSubmit;
     return (
       <div className='add-layout-form'>
-          <form onSubmit={e => {
-            e.preventDefault()
-            if (!input.value.trim()) {
-              return
-            }
-            onSubmit(input.value)
-            input.value = ''
-          }}>
-            <input ref={node => {
-              input = node
-            }} />
+          <form onSubmit={this.handleSubmit.bind(this)}>
+            <input name='height' />
+            <input name='width' />
             <button type='submit'>
               Add Garden Layout
             </button>
@@ -34,8 +34,8 @@ class AddLayoutForm extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmit: (text) => {
-      dispatch(addLayout(text));
+    onSubmit: (data) => {
+      dispatch(addLayout(data));
     }
   }
 };

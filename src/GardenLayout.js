@@ -5,12 +5,12 @@ export default class GardenLayout extends Component {
   static propTypes = {
     onClick: PropTypes.func,
     completed: PropTypes.bool,
-    text: PropTypes.string
+    data: PropTypes.object
   }
 
   setUpLayout(plantMapData) {
-    const height = parseInt(plantMapData.split(", ")[0]);
-    const width = parseInt(plantMapData.split(", ")[1]);
+    const height = plantMapData.get('height');
+    const width = plantMapData.get('width');
     const offset = 5;
     const blockSize = 20;
     const numberOfblocksInRow = Math.ceil((width / (20 + offset)));
@@ -62,7 +62,7 @@ export default class GardenLayout extends Component {
   }
 
   renderGardenLayouts() {
-    const dataForGardenLayout = this.setUpLayout(this.props.text);
+    const dataForGardenLayout = this.setUpLayout(this.props.data);
     const onClick = this.props.onClick;
     const completed = this.props.completed;
     return (

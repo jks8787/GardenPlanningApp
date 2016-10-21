@@ -9,7 +9,7 @@ class GardenLayoutList extends Component {
     gardenLayouts: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         completed: PropTypes.bool.isRequired,
-        text: PropTypes.string.isRequired
+        data: PropTypes.object.isRequired
       }).isRequired),
     onLayoutClick: PropTypes.func
   }
@@ -45,6 +45,8 @@ const getVisibleLayouts = (gardenLayouts, filter) => {
       return gardenLayouts.filter(l => l.completed)
     case 'SHOW_ACTIVE':
       return gardenLayouts.filter(l => !l.completed)
+    default:
+      return gardenLayouts
   }
 };
 

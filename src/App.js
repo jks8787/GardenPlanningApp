@@ -7,8 +7,6 @@ import { connect } from 'react-redux';
 
 class App extends Component {
   render() {
-    const stateForLog = this.props.state;
-    console.log('stateForLog', stateForLog);
     return (
       <div className='App container'>
         <div className='hero-body'>

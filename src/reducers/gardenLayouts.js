@@ -3,7 +3,7 @@ const layout = (state, action) => {
     case 'ADD_LAYOUT':
       return {
         id: action.id,
-        text: action.text,
+        data: action.data,
         completed: false
       }
     case 'TOGGLE_LAYOUT':
