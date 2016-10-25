@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { toggleLayout } from './actions';
 import  GardenLayout from './GardenLayout';
 import './GardenLayoutList.css';
+import GardenLayoutFilterNav from './GardenLayoutFilterNav.js';
 
 class GardenLayoutList extends Component {
   static propTypes = {
@@ -17,19 +18,21 @@ class GardenLayoutList extends Component {
   render() {
     const onLayoutClick = this.props.onLayoutClick;
     const gardenLayouts = this.props.gardenLayouts;
-    console.log('this.props.gardenLayouts', this.props.gardenLayouts);
     return (
-      <div className='garden-layout-list'>
+      <div className='garden-layout-list column is-two-thirds'>
       {(typeof gardenLayouts !== 'undefined') ?
-      <ul className='columns'>
-        {gardenLayouts.map(layout =>
-          <GardenLayout
-            key={layout.id}
-            {...layout}
-            onClick={() => onLayoutClick(layout.id)}
-          />
-        )}
-      </ul> :
+      <div>
+        <ul className='garden-layout-list__list columns'>
+          {gardenLayouts.map(layout =>
+            <GardenLayout
+              key={layout.id}
+              {...layout}
+              onClick={() => onLayoutClick(layout.id)}
+            />
+          )}
+        </ul>
+        <GardenLayoutFilterNav />
+      </div> :
       null
       }
       </div>

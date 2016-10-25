@@ -30,7 +30,7 @@ class Link extends Component {
 
   render() {
     return (
-      <div className='link'>
+      <div className='button is-link'>
         {this.renderLinksIfNeeded()}
       </div>
     );

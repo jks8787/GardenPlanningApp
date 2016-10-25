@@ -1,3 +1,7 @@
 .garden-layout-list {
   padding: 2rem;
 }
+
+.garden-layout-list__list {
+  flex-wrap: wrap;
+}
