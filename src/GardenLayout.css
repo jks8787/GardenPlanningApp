@@ -1,4 +1,9 @@
 .garden-layout-completed-true__svg-wrap {
   display: flex;
-  border: 0.5em solid gray;
+  filter: grayscale(90%);
+}
+
+.modal-card-body {
+  display: flex;
+  align-self: center;
 }

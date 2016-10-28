@@ -8,11 +8,16 @@ export default class GardenLayout extends Component {
     data: PropTypes.object
   }
 
-  setUpLayout(plantMapData) {
-    const height = plantMapData.get('height');
-    const width = plantMapData.get('width');
-    const offset = 5;
-    const blockSize = 20;
+  componentWillMount() {
+    this.boundhandleOnClickToViewDetail = this.handleOnClickToViewDetail.bind(this);
+    this.boundhandleOnClickToCloseDetail = this.handleOnClickToCloseDetail.bind(this);
+  }
+
+  setUpLayout(plantMapData, style) {
+    const height = (style === 'detail') ? (plantMapData.get('height') * 1.75) : plantMapData.get('height');
+    const width = (style === 'detail') ? (plantMapData.get('width') * 1.75) : plantMapData.get('width');
+    const offset = (style === 'detail') ? (5 * 1.75) : 5;
+    const blockSize = (style === 'detail') ? (20 * 1.75) : 20;
     const numberOfblocksInRow = Math.ceil((width / (20 + offset)));
     const numberofRows =  Math.ceil((height / (20 + offset)));
     const numOfPlantBlocksPerRow = (numberOfblocksInRow/2);
@@ -61,10 +66,9 @@ export default class GardenLayout extends Component {
     return data;
   }
 
-  renderGardenLayouts() {
-    const dataForGardenLayout = this.setUpLayout(this.props.data);
-    const onClick = this.props.onClick;
-    const completed = this.props.completed;
+  renderGardenLayouts(style) {
+    const {data, onClick, completed} = this.props
+    const dataForGardenLayout = this.setUpLayout(data, style);
     return (
       <div className={`garden-layout-completed-${completed} column`}>
         <div className={`garden-layout-completed-${completed}__svg-wrap`}>
@@ -97,7 +101,7 @@ export default class GardenLayout extends Component {
                 y={space.y}
                 width={dataForGardenLayout.setBlockSize}
                 height={dataForGardenLayout.setBlockSize}
-                fill='pink'
+                fill='brown'
                 key={`${space.x}${space.y}`}
               />
             )}
@@ -107,19 +111,75 @@ export default class GardenLayout extends Component {
         {
           completed ? null :
             <button
+              className='to-complete button is-outlined'
               onClick={onClick}
             >
-              mark completed
+              Mark Completed
             </button>
         }
       </div>
     );
   }
 
+  handleOnClickToViewDetail(evt) {
+    evt.preventDefault();
+    const { id } = this.props;
+    const forState = {};
+    forState[id] = true;
+    /*
+      using state of the component
+      as at this time I do not need this informaiton
+      in the application state
+    */
+    if (evt.target.classList[0] !== 'to-complete' ) {
+      this.setState(forState);
+    }
+  }
+
+  handleOnClickToCloseDetail(evt) {
+    evt.preventDefault();
+    const { id } = this.props;
+    const forState = {};
+    forState[id] = false;
+    this.setState(forState);
+  }
+
+  renderModal() {
+    return (
+      <div className='modal is-active'>
+        <div className='modal-background'></div>
+        <div className='modal-card'>
+          <header className="modal-card-head">
+            <p className="modal-card-title">Garden Layout</p>
+          </header>
+          <section className='modal-card-body'>
+            <div className="content">
+              {this.renderGardenLayouts('detail')}
+            </div>
+          </section>
+        </div>
+        <button
+          className='modal-close'
+          onClick={this.boundhandleOnClickToCloseDetail}
+        >
+        </button>
+      </div>
+    );
+  }
+
   render() {
+    const { id } = this.props;
+    const shouldRenderModal = (this.state !== null) ? this.state[id] : false;
+    console.log('shouldRenderModal', shouldRenderModal)
     return (
       <div className='garden-layout'>
-        {this.renderGardenLayouts()}
+        <div
+          onClick={this.boundhandleOnClickToViewDetail}
+          className='garden-layout__wrap'
+        >
+          {this.renderGardenLayouts('list')}
+        </div>
+        {shouldRenderModal ? this.renderModal() : null }
       </div>
     );
   }
