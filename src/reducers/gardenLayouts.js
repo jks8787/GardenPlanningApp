@@ -26,6 +26,13 @@ const layouts = (state = [], action) => {
         ...state,
         layout(undefined, action)
       ]
+    case 'FETCH_LAYOUT':
+      // here is here I add the layout that I will fetch
+      console.log(layout(undefined, action));
+      return [
+        ...state,
+        layout(undefined, action)
+      ]
     case 'TOGGLE_LAYOUT':
       return state.map(t =>
         layout(t, action)
