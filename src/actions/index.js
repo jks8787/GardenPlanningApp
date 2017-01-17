@@ -28,8 +28,9 @@ export const toggleLayout = (id) => {
 
 export const fetchLayouts = () => {
   // note that for now I am just hardcoding the token
-  const userInfo = 'SOME_AUTH_TOKEN';
-  const url = 'SOME_URL_TO_HIT';
+  const userInfo =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE0NzgxOTg0NzJ9.-17vzyUbmpCuqupne-hB8j_lzUrNsQQ44-fNqRHadrw';
+  const url = 'http://localhost:4000/garden_layouts';
   debugger;
   return () => ({
     type: FETCH_LAYOUT,
